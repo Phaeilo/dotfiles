@@ -49,5 +49,8 @@ stty -ixon
 # direnv
 eval "$(direnv hook zsh)"
 
+# fzf
+source <(fzf --zsh)
+
 # syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
