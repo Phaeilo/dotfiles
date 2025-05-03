@@ -1,0 +1,53 @@
+## try to avoid the 'zsh: no matches found...'
+setopt nonomatch
+
+## alert me if something failed
+setopt printexitvalue
+
+## history settings
+setopt no_share_history
+setopt append_history
+setopt extended_history
+
+## aliases
+alias ls='ls --color=auto'
+alias ll='ls -halF'
+alias l='ls -hlF'
+
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
+alias cd..='cd ..'
+alias j='jobs'
+
+alias vi='nvim'
+alias vim='nvim'
+alias feh='feh --scale-down'
+alias sudi='sudo -i'
+alias yu='yay -Syu'
+
+## default applications
+export EDITOR='nvim'
+export BROWSER='chromium'
+export PAGER='less'
+
+# misc configuration
+#export TERM=xterm-256color
+export MANWIDTH=${MANWIDTH:-80}
+export LIBVA_DRIVER_NAME=vdpau
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+
+# edit command line with ctrl-x-e
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
+
+# ctrl-s will no longer freeze the terminal
+stty -ixon
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
