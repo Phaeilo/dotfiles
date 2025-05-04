@@ -41,6 +41,9 @@ export MANWIDTH=${MANWIDTH:-80}
 export LIBVA_DRIVER_NAME=vdpau
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 
+# secrets
+[[ -f "${HOME}/.secrets" ]] && source ${HOME}/.secrets
+
 # edit command line with ctrl-x-e
 autoload edit-command-line
 zle -N edit-command-line
