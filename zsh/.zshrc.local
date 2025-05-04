@@ -20,9 +20,12 @@ alias cp='cp -i'
 
 alias cd..='cd ..'
 alias j='jobs'
+alias xx='chmod +x'
+alias xc='xclip -selection c'
 
 alias vi='nvim'
 alias vim='nvim'
+alias jv='jq . | vim -c "set syntax=json" -'
 alias feh='feh --scale-down'
 alias sudi='sudo -i'
 alias yu='yay -Syu'
