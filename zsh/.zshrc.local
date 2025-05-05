@@ -1,36 +1,37 @@
-## try to avoid the 'zsh: no matches found...'
+# try to avoid the 'zsh: no matches found...'
 setopt nonomatch
 
-## alert me if something failed
+# alert me if something failed
 setopt printexitvalue
 
-## history settings
+# history settings
 setopt no_share_history
 setopt append_history
 setopt extended_history
 
-## aliases
+# aliases
 alias ls='ls --color=auto'
 alias ll='ls -halF'
-alias l='ls -hlF'
+alias ..='cd ..'
+alias cd..='cd ..'
 
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 
-alias cd..='cd ..'
+alias vi='nvim'
+alias vim='nvim'
+alias jv='(jq . | nvim -c "setfiletype json" -)'
+alias jvv='(jq . | nvim -c "setfiletype json | set foldmethod=syntax" -)'
+alias hist='(sort | uniq -c | sort -n)'
+alias feh='feh --scale-down'
+alias sudi='sudo -i'
+alias yu='yay -Syu'
 alias j='jobs'
 alias xx='chmod +x'
 alias xc='xclip -selection c'
 
-alias vi='nvim'
-alias vim='nvim'
-alias jv='jq . | vim -c "set syntax=json" -'
-alias feh='feh --scale-down'
-alias sudi='sudo -i'
-alias yu='yay -Syu'
-
-## default applications
+# default applications
 export EDITOR='nvim'
 export BROWSER='chromium'
 export PAGER='less'
@@ -44,6 +45,40 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 # secrets
 [[ -f "${HOME}/.secrets" ]] && source ${HOME}/.secrets
 
+# misc bin dirs
+[[ -d "$HOME/.krew/bin" ]] && export PATH="$PATH:$HOME/.krew/bin"
+[[ -d "$HOME/.cargo/bin" ]] && export PATH="$PATH:$HOME/.cargo/bin"
+[[ -d "$HOME/.local/bin" ]] && export PATH="$PATH:$HOME/.local/bin"
+# [[ -d "$HOME/.npm-packages/bin" ]] && export PATH="$PATH:$HOME/.npm-packages/bin"
+
+# gcp
+if [[ -d /opt/google-cloud-cli ]] ; then
+  source /opt/google-cloud-cli/*.zsh.inc
+  export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+fi
+
+# golang
+export GOPATH=$HOME/go
+[[ -d "$GOPATH/bin" ]] && export PATH="$PATH:$GOPATH/bin"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# fzf
+source <(fzf --zsh)
+
+# # venv prompt
+# function virtual_env_prompt () {
+#     REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+# }
+# grml_theme_add_token virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+# zstyle ':prompt:grml:left:setup' items rc change-root user at host path virtual-env vcs percent
+
 # edit command line with ctrl-x-e
 autoload edit-command-line
 zle -N edit-command-line
@@ -51,12 +86,6 @@ bindkey '^Xe' edit-command-line
 
 # ctrl-s will no longer freeze the terminal
 stty -ixon
-
-# direnv
-eval "$(direnv hook zsh)"
-
-# fzf
-source <(fzf --zsh)
 
 # syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
