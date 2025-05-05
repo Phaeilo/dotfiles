@@ -760,11 +760,19 @@ require('lazy').setup({
   },
 
   {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
+    'yetone/avante.nvim',
+    event = 'VeryLazy',
     version = false, -- Never set this value to "*"! Never!
     opts = {
-      provider = "claude",
+      provider = os.getenv('AVANTE_PROVIDER') or 'claude',
+      vendors = {
+        internal = {
+          __inherited_from = 'openai',
+          endpoint = os.getenv('INTERNAL_AI_ENDPOINT'),
+          api_key_name = 'INTERNAL_AI_APIKEY',
+          model = os.getenv('INTERNAL_AI_MODEL'),
+        },
+      },
       claude = {
         endpoint = "https://api.anthropic.com",
         model = "claude-3-7-sonnet-20250219",
