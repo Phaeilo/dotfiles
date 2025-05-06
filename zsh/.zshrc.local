@@ -21,6 +21,7 @@ alias cp='cp -i'
 
 alias vi='nvim'
 alias vim='nvim'
+alias jr='jq -r'
 alias jv='(jq . | nvim -c "setfiletype json" -)'
 alias jvv='(jq . | nvim -c "setfiletype json | set foldmethod=syntax" -)'
 alias hist='(sort | uniq -c | sort -n)'
@@ -30,6 +31,7 @@ alias yu='yay -Syu'
 alias j='jobs'
 alias xx='chmod +x'
 alias xc='xclip -selection c'
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh='kitten ssh'
 
 # default applications
 export EDITOR='nvim'
@@ -72,12 +74,12 @@ eval "$(direnv hook zsh)"
 # fzf
 source <(fzf --zsh)
 
-# # venv prompt
-# function virtual_env_prompt () {
-#     REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
-# }
-# grml_theme_add_token virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
-# zstyle ':prompt:grml:left:setup' items rc change-root user at host path virtual-env vcs percent
+# venv prompt
+function virtual_env_prompt () {
+    REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+}
+grml_theme_add_token virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+zstyle ':prompt:grml:left:setup' items rc change-root user at host path virtual-env vcs percent
 
 # edit command line with ctrl-x-e
 autoload edit-command-line
