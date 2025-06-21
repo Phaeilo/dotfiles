@@ -573,7 +573,7 @@ require('lazy').setup({
     version = '1.*',
     dependencies = {
       'folke/lazydev.nvim',
-      'Kaiser-Yang/blink-cmp-avante',
+      --'Kaiser-Yang/blink-cmp-avante',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -605,14 +605,14 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'avante', 'lsp', 'buffer', 'snippets', 'path', 'lazydev' },
+        --default = { 'avante', 'lsp', 'buffer', 'snippets', 'path', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-          avante = {
-            module = 'blink-cmp-avante',
-            name = 'Avante',
-            opts = {}
-          },
+          -- avante = {
+          --   module = 'blink-cmp-avante',
+          --   name = 'Avante',
+          --   opts = {}
+          -- },
           -- always consider the 'buffer' source
           lsp = { fallbacks = {} },
         },
@@ -759,46 +759,46 @@ require('lazy').setup({
     },
   },
 
-  {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    version = false, -- Never set this value to "*"! Never!
-    opts = {
-      provider = os.getenv('AVANTE_PROVIDER') or 'claude',
-      vendors = {
-        internal = {
-          __inherited_from = 'openai',
-          endpoint = os.getenv('INTERNAL_AI_ENDPOINT'),
-          api_key_name = 'INTERNAL_AI_APIKEY',
-          model = os.getenv('INTERNAL_AI_MODEL'),
-        },
-      },
-      claude = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-7-sonnet-20250219",
-        temperature = 0,
-        max_tokens = 4096,
-      },
-      behaviour = {
-        auto_suggestions = false, -- Experimental stage
-        auto_set_highlight_group = true,
-        auto_set_keymaps = true,
-        auto_apply_diff_after_generation = false,
-        support_paste_from_clipboard = false,
-        minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
-        enable_token_counting = true, -- Whether to enable token counting. Default to true.
-      },
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-    },
-  }
+  -- {
+  --   'yetone/avante.nvim',
+  --   event = 'VeryLazy',
+  --   version = false, -- Never set this value to "*"! Never!
+  --   opts = {
+  --     provider = os.getenv('AVANTE_PROVIDER') or 'claude',
+  --     vendors = {
+  --       internal = {
+  --         __inherited_from = 'openai',
+  --         endpoint = os.getenv('INTERNAL_AI_ENDPOINT'),
+  --         api_key_name = 'INTERNAL_AI_APIKEY',
+  --         model = os.getenv('INTERNAL_AI_MODEL'),
+  --       },
+  --     },
+  --     claude = {
+  --       endpoint = "https://api.anthropic.com",
+  --       model = "claude-3-7-sonnet-20250219",
+  --       temperature = 0,
+  --       max_tokens = 4096,
+  --     },
+  --     behaviour = {
+  --       auto_suggestions = false, -- Experimental stage
+  --       auto_set_highlight_group = true,
+  --       auto_set_keymaps = true,
+  --       auto_apply_diff_after_generation = false,
+  --       support_paste_from_clipboard = false,
+  --       minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
+  --       enable_token_counting = true, -- Whether to enable token counting. Default to true.
+  --     },
+  --   },
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   build = "make",
+  --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  -- }
 
 ---@diagnostic disable-next-line: missing-fields
 }, {
