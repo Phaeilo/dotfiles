@@ -51,6 +51,8 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 [[ -d "$HOME/.krew/bin" ]] && export PATH="$PATH:$HOME/.krew/bin"
 [[ -d "$HOME/.cargo/bin" ]] && export PATH="$PATH:$HOME/.cargo/bin"
 [[ -d "$HOME/.local/bin" ]] && export PATH="$PATH:$HOME/.local/bin"
+[[ -d "$HOME/.local/kitty.app/bin" ]] && export PATH="$PATH:$HOME/.local/kitty.app/bin"
+[[ -d "/opt/nvim-linux-x86_64/bin" ]] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # [[ -d "$HOME/.npm-packages/bin" ]] && export PATH="$PATH:$HOME/.npm-packages/bin"
 
 # gcp
@@ -62,6 +64,13 @@ fi
 # golang
 export GOPATH=$HOME/go
 [[ -d "$GOPATH/bin" ]] && export PATH="$PATH:$GOPATH/bin"
+
+# rust
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+# node/nvm
+[[ -d "$HOME/.nvm" ]] && export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -90,4 +99,5 @@ bindkey '^Xe' edit-command-line
 stty -ixon
 
 # syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
