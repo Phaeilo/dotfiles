@@ -798,8 +798,20 @@ require('lazy').setup({
   --     "nvim-lua/plenary.nvim",
   --     "MunifTanjim/nui.nvim",
   --   },
-  -- }
-
+  -- },
+  {
+    'deponian/nvim-base64',
+    version = '*',
+    keys = {
+      -- Decode/encode selected sequence from/to base64
+      -- (mnemonic: [b]ase64)
+      { '<Leader>b', '<Plug>(FromBase64)', mode = 'x', desc = 'Base64 decode' },
+      { '<Leader>B', '<Plug>(ToBase64)', mode = 'x', desc = 'Base64 encode' },
+    },
+    config = function()
+      require('nvim-base64').setup()
+    end,
+  },
 ---@diagnostic disable-next-line: missing-fields
 }, {
   ui = {
