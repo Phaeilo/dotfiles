@@ -53,7 +53,7 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 [[ -d "$HOME/.local/bin" ]] && export PATH="$PATH:$HOME/.local/bin"
 [[ -d "$HOME/.local/kitty.app/bin" ]] && export PATH="$PATH:$HOME/.local/kitty.app/bin"
 [[ -d "/opt/nvim-linux-x86_64/bin" ]] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-# [[ -d "$HOME/.npm-packages/bin" ]] && export PATH="$PATH:$HOME/.npm-packages/bin"
+[[ -d "$HOME/.npm-packages/bin" ]] && export PATH="$PATH:$HOME/.npm-packages/bin"
 
 # gcp
 if [[ -d /opt/google-cloud-cli ]] ; then

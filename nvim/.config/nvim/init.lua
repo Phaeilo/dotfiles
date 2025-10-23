@@ -227,7 +227,6 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>a', group = '[A]vante' },
       },
     },
   },
@@ -490,7 +489,7 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
 
         lua_ls = {
           settings = {
@@ -573,7 +572,6 @@ require('lazy').setup({
     version = '1.*',
     dependencies = {
       'folke/lazydev.nvim',
-      --'Kaiser-Yang/blink-cmp-avante',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -605,14 +603,8 @@ require('lazy').setup({
       },
 
       sources = {
-        --default = { 'avante', 'lsp', 'buffer', 'snippets', 'path', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-          -- avante = {
-          --   module = 'blink-cmp-avante',
-          --   name = 'Avante',
-          --   opts = {}
-          -- },
           -- always consider the 'buffer' source
           lsp = { fallbacks = {} },
         },
@@ -759,47 +751,7 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --   'yetone/avante.nvim',
-  --   event = 'VeryLazy',
-  --   version = false, -- Never set this value to "*"! Never!
-  --   opts = {
-  --     provider = os.getenv('AVANTE_PROVIDER') or 'claude',
-  --     vendors = {
-  --       internal = {
-  --         __inherited_from = 'openai',
-  --         endpoint = os.getenv('INTERNAL_AI_ENDPOINT'),
-  --         api_key_name = 'INTERNAL_AI_APIKEY',
-  --         model = os.getenv('INTERNAL_AI_MODEL'),
-  --       },
-  --     },
-  --     claude = {
-  --       endpoint = "https://api.anthropic.com",
-  --       model = "claude-3-7-sonnet-20250219",
-  --       temperature = 0,
-  --       max_tokens = 4096,
-  --     },
-  --     behaviour = {
-  --       auto_suggestions = false, -- Experimental stage
-  --       auto_set_highlight_group = true,
-  --       auto_set_keymaps = true,
-  --       auto_apply_diff_after_generation = false,
-  --       support_paste_from_clipboard = false,
-  --       minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
-  --       enable_token_counting = true, -- Whether to enable token counting. Default to true.
-  --     },
-  --   },
-  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  --   build = "make",
-  --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "stevearc/dressing.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "MunifTanjim/nui.nvim",
-  --   },
-  -- },
-  {
+  { -- Base64 tools
     'deponian/nvim-base64',
     version = '*',
     keys = {
@@ -812,6 +764,42 @@ require('lazy').setup({
       require('nvim-base64').setup()
     end,
   },
+
+  { -- Terminal
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      terminal = {}
+    },
+    keys = {
+      { '<Leader>tt', function() Snacks.terminal.toggle() end, desc = 'Toggle terminal' },
+    },
+  },
+
+  { -- Clause Code
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    config = true,
+    keys = {
+      { "<leader>a", nil, desc = "AI/Claude Code" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      {
+        "<leader>as",
+        "<cmd>ClaudeCodeTreeAdd<cr>",
+        desc = "Add file",
+        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+      },
+      -- Diff management
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+    },
+  }
 ---@diagnostic disable-next-line: missing-fields
 }, {
   ui = {
