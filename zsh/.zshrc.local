@@ -90,6 +90,9 @@ function virtual_env_prompt () {
 grml_theme_add_token virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
 zstyle ':prompt:grml:left:setup' items rc change-root user at host path virtual-env vcs percent
 
+# uv
+export UV_NATIVE_TLS=1
+
 # edit command line with ctrl-x-e
 autoload edit-command-line
 zle -N edit-command-line
