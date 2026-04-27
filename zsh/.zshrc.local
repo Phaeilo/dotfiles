@@ -31,6 +31,7 @@ alias yu='yay -Syu'
 alias j='jobs'
 alias xx='chmod +x'
 alias xc='xclip -selection c'
+alias genpw='dd if=/dev/urandom bs=1 count=16 status=none | base64 -w 0 | tr -d ='
 [[ "$TERM" == "xterm-kitty" ]] && alias ssh='kitten ssh'
 
 # default applications
@@ -54,6 +55,9 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 [[ -d "$HOME/.local/kitty.app/bin" ]] && export PATH="$PATH:$HOME/.local/kitty.app/bin"
 [[ -d "/opt/nvim-linux-x86_64/bin" ]] && export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 [[ -d "$HOME/.npm-packages/bin" ]] && export PATH="$PATH:$HOME/.npm-packages/bin"
+
+# ksops
+[[ -d /opt/kustomize/viaduct.ai/v1/ksops ]] && export PATH="$PATH:/opt/kustomize/viaduct.ai/v1/ksops"
 
 # gcp
 if [[ -d /opt/google-cloud-cli ]] ; then
