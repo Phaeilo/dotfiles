@@ -491,7 +491,7 @@ require('lazy').setup({
       -- Enable the following language servers
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         ty = {},
         -- pyright = {},
         rust_analyzer = {},
@@ -526,6 +526,8 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
+      -- gopls is installed system-wide via `go install`
+      ensure_installed = vim.tbl_filter(function(n) return n ~= 'gopls' end, ensure_installed)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -565,6 +567,7 @@ require('lazy').setup({
         json = { 'jq' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
+        go = { 'goimports', 'gofmt' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
@@ -745,6 +748,7 @@ require('lazy').setup({
       local lint = require 'lint'
       lint.linters_by_ft = {
         python = { 'ruff' },
+        go = { 'golangcilint' },
       }
 
       -- Create autocommand which carries out the actual linting
