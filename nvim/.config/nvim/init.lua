@@ -524,7 +524,9 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',     -- Lua formatter
+        'prettierd',  -- daemon-mode Prettier, used by conform.nvim
+        'eslint_d',   -- daemon-mode ESLint, used by nvim-lint
       })
       -- gopls is installed system-wide via `go install`
       ensure_installed = vim.tbl_filter(function(n) return n ~= 'gopls' end, ensure_installed)
@@ -564,12 +566,18 @@ require('lazy').setup({
       notify_on_error = false,
       formatters_by_ft = {
         lua = { 'stylua' },
-        json = { 'jq' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
         go = { 'goimports', 'gofmt' },
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        -- Web stack: prefer prettierd (daemon) when available, fall back to prettier.
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        json       = { 'prettierd', 'prettier', stop_after_first = true },
+        css        = { 'prettierd', 'prettier', stop_after_first = true },
+        scss       = { 'prettierd', 'prettier', stop_after_first = true },
+        html       = { 'prettierd', 'prettier', stop_after_first = true },
+        markdown   = { 'prettierd', 'prettier', stop_after_first = true },
+        yaml       = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -749,6 +757,8 @@ require('lazy').setup({
       lint.linters_by_ft = {
         python = { 'ruff' },
         go = { 'golangcilint' },
+        javascript = { 'eslint_d' },
+        typescript = { 'eslint_d' },
       }
 
       -- Create autocommand which carries out the actual linting
