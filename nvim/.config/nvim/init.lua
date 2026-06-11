@@ -524,12 +524,11 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua',     -- Lua formatter
-        'prettierd',  -- daemon-mode Prettier, used by conform.nvim
-        'eslint_d',   -- daemon-mode ESLint, used by nvim-lint
+        'stylua', -- Lua formatter
       })
-      -- gopls is installed system-wide via `go install`
-      ensure_installed = vim.tbl_filter(function(n) return n ~= 'gopls' end, ensure_installed)
+      -- gopls, prettierd and eslint_d are installed system-wide
+      local system_installed = { gopls = true, prettierd = true, eslint_d = true }
+      ensure_installed = vim.tbl_filter(function(n) return not system_installed[n] end, ensure_installed)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
