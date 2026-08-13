@@ -44,6 +44,7 @@ export PAGER='less'
 export MANWIDTH=${MANWIDTH:-80}
 export LIBVA_DRIVER_NAME=vdpau
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+export PODMAN_COMPOSE_WARNING_LOGS=false
 
 # secrets
 [[ -f "${HOME}/.secrets" ]] && source ${HOME}/.secrets
